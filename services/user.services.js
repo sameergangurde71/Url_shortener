@@ -10,6 +10,8 @@ export async function getUserByEmail(email) {
             firstname: usersTable.firstname,
             lastname: usersTable.lastname,
             email: usersTable.email,
+            salt: usersTable.salt,
+            password: usersTable.password,
         })
         .from(usersTable)
         .where(eq(usersTable.email, email));
@@ -17,20 +19,20 @@ export async function getUserByEmail(email) {
     return existingUser;
 } 
 
-export async function createdUser({email, firstname, lastname, password}) {
+// export async function createdUser({email, firstname, lastname, password}) {
     
-    if(!email || !password) throw new Error('email and password required');
+    // if(!email || !password) throw new Error('email and password required');
 
-    const {salt, password: hashedPassword} = hashedPasswordWithSalt(password); 
+    // const {salt, password: hashedPassword} = hashedPasswordWithSalt(password); 
 
-    const [inserted] = await db.insert(usersTable).values({
-        email,
-        firstname,
-        lastname,
-        salt,
-        password: hashedPassword,
-    })
-    .returning({ id: usersTable.id });
+    // const [inserted] = await db.insert(usersTable).values({
+    //     email,
+    //     firstname,
+    //     lastname,
+    //     salt,
+    //     password: hashedPassword,
+    // })
+    // .returning({ id: usersTable.id });
 
-    return inserted;
-}
+    // return inserted;
+// }
